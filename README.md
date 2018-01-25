@@ -1,3 +1,13 @@
+# About this fork
+This repository was forked from [Depaulicious/PoliScraper](https://github.com/Depaulicious/PoliScraper). Here's what changed:
+* `webpoliscraper.py` works as a standalone script with the following syntax: `./webpoliscraper.py "Lesson Timetable.html" iCal_File.ics`
+* The output calendar does not contain URLs and descriptions. Lesson names are rendered with a prettier capitalization. The location field only contains building and classroom.
+* The file `PoliScraper.workflow` is an Automator workflow which – when installed as a Service on macOS – integrates the script with Google Chrome. Open the lesson schedule page on Chrome, click *Chrome > Services > PoliScraper* on the menu bar, and save the output .ics file.
+* The script `install.sh` copies `webpoliscraper.py` to `/usr/local/bin` with the correct permissions and it installs the Service described above.
+
+Below is the `README.md` file from the original repository.
+&nbsp;
+
 # PoliMi Timetable Scraper
 Scrapes the timetable from PoliMi online services and converts it to well-known iCal format
 

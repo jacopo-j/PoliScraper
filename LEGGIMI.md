@@ -1,3 +1,13 @@
+# Su questo fork
+Questo repository è un fork di [Depaulicious/PoliScraper](https://github.com/Depaulicious/PoliScraper). Ecco cosa ho cambiato:
+* `webpoliscraper.py` funziona come script autonomo con la sintassi `./webpoliscraper.py "Orario Lezioni.html" Calendario.ics`
+* Il calendario prodotto non contiene URL e descrizioni. I nomi delle lezioni sono riportati con un uso migliore delle lettere maiuscole. Il campo *Luogo* contiene solo l'edificio e l'aula della lezione.
+* Il file `PoliScraper.workflow` è un workflow di Automator che – una volta installato come Servizio su macOS – integra questo script con Google Chrome. Apri la pagina dell'orario delle lezioni su Chrome, clicca *Chrome > Servizi > PoliScraper* nella barra dei menu, e salva il file .ics prodotto automaticamente.
+* Lo script `install.sh` copia `webpoliscraper.py` in `/usr/local/bin` con i permessi corretti e installa il Servizio descritto sopra.
+
+Segue il file `README.md` della repository originale.
+&nbsp;
+
 # Convertitore di orario lezioni PoliMi in formato iCal
 
 ![Screenshot](screenshot.png "The scraper's main window")

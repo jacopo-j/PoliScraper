@@ -1,11 +1,34 @@
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 import datetime, icalendar, re, uuid, warnings
 from bs4 import BeautifulSoup
+import re
+import sys
 #from typing import overload
 
 date2ssepoch = lambda date: int(datetime.date(*reversed([int(i) for i in date.strip().split("/")])).strftime("%s"))
 time2sec = lambda time: int(time.split(":")[0])*60*60 + int(time.split(":")[1])*60
+
+def capitalize(string, lang="IT"):
+    result = []
+    for x in string.split(" "):
+        if (lang == "IT"):
+            if (x.lower() in ("e", "dei", "del", "della", "dello", "ed", "al", "a", "ai", "ex", "degli", "delle", "di", "da", "in", "con", "su", "per", "tra", "fra", "lo", "la", "il", "gli", "le", "con", "senza", "un", "una", "uno")):
+                result.append(x.lower())
+            elif (x.lower().startswith("dell'")):
+                result.append("dell'" + x[5:].title())
+            elif (x.lower().startswith("l'")):
+                result.append("l'" + x[2:].title())
+            else:
+                result.append(x.title())
+        else:
+            if (x.lower() in ("and", "of", "on", "to", "the", "a", "for", "from", "in", "with", "without")):
+                result.append(x.lower())
+            else:
+                result.append(x.title())
+    return " ".join(result)
+
 
 def datetime2ical(date, time=0):
     d = datetime.datetime.fromtimestamp(date+time)
@@ -158,8 +181,9 @@ def gen_timetable_ical(ttable, lang="IT"):
             dtend = datetime.datetime.fromtimestamp(course["end"] + lesson["end"])
             duration = datetime.timedelta(seconds=lesson["end"]-lesson["start"])
             uid = unicode(uuid.uuid5(uuid.NAMESPACE_OID, "{}_{}_{}_{}".format(course["id"], course["start"], lesson["dow"], lesson["start"]))) + u"@polimi.it"
-            summary = u"{0} ({1})".format(course["name"].title(), lesson_str[lang] if lesson["lesson"] else training_str[lang])
-            location = u"{0} {1} - {2}".format(room_str[lang].title(), lesson["room"], lesson["address"])
+            summary = u"{0} ({1})".format(capitalize(course["name"], lang), lesson_str[lang] if lesson["lesson"] else training_str[lang])
+            building = re.findall("- (Edificio .*?) -", lesson["address"])[0]
+            location = u"{0} {1} {2}".format(building, room_str[lang].title(), lesson["room"])
             contact = course["teacher"]
             t = course.copy()
             t.update(lesson)
@@ -172,9 +196,9 @@ def gen_timetable_ical(ttable, lang="IT"):
             event.add("duration", duration)
             event.add("uid", uid)
             event.add("location", location)
-            event.add("contact", contact)
-            event.add("description", description)
-            event.add("url", url)
+            #event.add("contact", contact)
+            #event.add("description", description)
+            #event.add("url", url)
             event.add("rrule", rrule)
 
             cal.add_component(event)
@@ -186,3 +210,19 @@ class NotTimetableError(ValueError):
 
 class NotTextualError(ValueError):
     pass
+
+
+def main():
+    if (len(sys.argv) != 3):
+        print "Usage: webpoliscraper.py [input_file] [output_file]"
+        sys.exit()
+    with open(sys.argv[1], "r") as infile:
+        pagesource = infile.read()
+    ttable, lang = parse_timetable(pagesource, print_divs=False, print_regex=False, print_html=False)
+    ical = gen_timetable_ical(ttable, lang)
+    with open(sys.argv[2], "w") as f:
+        f.write(ical)
+
+
+if __name__ == '__main__':
+    main()
