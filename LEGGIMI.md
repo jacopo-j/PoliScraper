@@ -5,7 +5,7 @@ Questo repository è un fork di [Depaulicious/PoliScraper](https://github.com/De
 * Il file `PoliScraper.workflow` è un workflow di Automator che – una volta installato come Servizio su macOS – integra questo script con Google Chrome. Apri la pagina dell'orario delle lezioni su Chrome, clicca *Chrome > Servizi > PoliScraper* nella barra dei menu, e salva il file .ics prodotto automaticamente.
 * Lo script `install.sh` copia `webpoliscraper.py` in `/usr/local/bin` con i permessi corretti e installa il Servizio descritto sopra.
 
-Segue il file `README.md` della repository originale.
+Segue il file `LEGGIMI.md` della repository originale.
 &nbsp;
 
 # Convertitore di orario lezioni PoliMi in formato iCal
