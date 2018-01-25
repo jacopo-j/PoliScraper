@@ -5,7 +5,7 @@ This repository was forked from [Depaulicious/PoliScraper](https://github.com/De
 * The file `PoliScraper.workflow` is an Automator workflow which – when installed as a Service on macOS – integrates the script with Google Chrome. Open the lesson schedule page on Chrome, click *Chrome > Services > PoliScraper* on the menu bar, and save the output .ics file.
 * The script `install.sh` copies `webpoliscraper.py` to `/usr/local/bin` with the correct permissions and it installs the Service described above.
 
-Below is the `README.md` file from the original repository.
+Below is the `LEGGIMI.md` file from the original repository.
 &nbsp;
 
 # PoliMi Timetable Scraper
