@@ -51,9 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>set workdir to (do shell script "mktemp -d")tell application "Google Chrome" to activatetell application "System Events"	keystroke "s" using command down	delay 1	keystroke "g" using {command down, shift down}	keystroke workdir	keystroke return
-	delay 0.5	keystroke returnend tell
-delay 0.5set outfile to quoted form of (POSIX path of (choose file name with prompt "Salva calendario come:" default location (get path to desktop) default name "orario.ics"))do shell script ("/Library/Frameworks/Python.framework/Versions/2.7/bin/python2 ~/Documents/bin/poliscraper.py " &amp; workdir &amp; "/*.* " &amp; outfile)</string>
+					<string>set workdir to (do shell script "mktemp -d")tell application "Google Chrome" to activatetell application "System Events"	keystroke "s" using command down	delay 1	keystroke "g" using {command down, shift down}	keystroke workdir	keystroke return	delay 0.5	keystroke returnend telldelay 0.5set outfile to quoted form of (POSIX path of (choose file name with prompt "Salva calendario come:" default location (get path to desktop) default name "orario.ics"))do shell script ("/Library/Frameworks/Python.framework/Versions/2.7/bin/python2 /usr/local/bin/webpoliscraper.py " &amp; workdir &amp; "/*.* " &amp; outfile)</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -104,8 +102,6 @@ end run</string>
 						<string>0</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
